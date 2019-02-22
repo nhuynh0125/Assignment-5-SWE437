@@ -160,7 +160,13 @@ private static void readInputSave(Scanner sc, String courseID) /* CLI */
       System.out.println("I failed and could not save your appointment.\nException message is: " + e);
    }
 }
-
+/**
+ * @author Ngoc Huynh
+ * @param quizList
+ * @param retakesList
+ * @param course
+ * Change the method from private to public, for easier access to write Junit test
+ */
 // ===============================================================
 /* CLI: Dropped parameter "out", now we print to screen */
 // Print the quiz retake choices (maybe should also change the method name?)
