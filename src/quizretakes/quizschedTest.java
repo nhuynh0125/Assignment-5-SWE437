@@ -1,13 +1,13 @@
 package quizretakes;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.time.LocalDate;
-import org.junit.Before;
-import org.junit.Test;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class quizschedTest {
@@ -28,7 +28,7 @@ public class quizschedTest {
 	String Date;
 	String Until;
 	String finalString;
-	
+
 	String nl = System.getProperty("line.separator");
 
 	@Before
@@ -36,28 +36,26 @@ public class quizschedTest {
 		current = LocalDate.now();
 		quizList = new quizzes();
 		retakesList = new retakes();
-		//course = new courseBean(courseID, courseTitle, retakeDuration, startSkip, endSkip, dataLocation);
-		Intro =
-				nl +
-						nl +
-						"******************************************************************************" + nl +
-						"GMU quiz retake scheduler for class Software testing" + nl +
-						"******************************************************************************" + nl +
-						nl +
-						nl +
-						"You can sign up for quiz retakes within the next two weeks. " + nl +
-						"Enter your name (as it appears on the class roster), " + nl +
-						"then select which date, time, and quiz you wish to retake from the following list." + nl +
-						nl;
+		// course = new courseBean(courseID, courseTitle, retakeDuration, startSkip,
+		// endSkip, dataLocation);
+		Intro = nl + nl + "******************************************************************************" + nl
+				+ "GMU quiz retake scheduler for class Software testing" + nl
+				+ "******************************************************************************" + nl + nl + nl
+				+ "You can sign up for quiz retakes within the next two weeks. " + nl
+				+ "Enter your name (as it appears on the class roster), " + nl
+				+ "then select which date, time, and quiz you wish to retake from the following list." + nl + nl;
 		Date = "Today is " + current.getDayOfWeek() + ", " + current.getMonth() + " " + current.getDayOfMonth() + nl;
-		Until = "Currently scheduling quizzes for the next two weeks, until " +
-				current.plusWeeks(2).getDayOfWeek() + ", " + current.plusWeeks(2).getMonth() + " " + current.plusWeeks(2).getDayOfMonth() + nl;
+		Until = "Currently scheduling quizzes for the next two weeks, until " + current.plusWeeks(2).getDayOfWeek()
+				+ ", " + current.plusWeeks(2).getMonth() + " " + current.plusWeeks(2).getDayOfMonth() + nl;
 		finalString = Intro + Date + Until + nl;
 	}
-	
+
+	/*
+	 * 
+	 */
 	@SuppressWarnings("static-access")
 	@Test
-	public void testSuccessPrint(){
+	public void testSuccessPrint() {
 		course = new courseBean(courseID, courseTitle, retakeDuration, startSkip, endSkip, dataLocation);
 		quizBean qb1 = new quizBean(1, 01, 29, 10, 30);
 		quizBean qb2 = new quizBean(2, 02, 05, 10, 30);
@@ -72,7 +70,7 @@ public class quizschedTest {
 		PrintStream streamOut = System.out;
 		System.setOut(stream);
 		schedule.printQuizScheduleForm(quizList, retakesList, course);
-		//schedule.toString();
+		// schedule.toString();
 		System.out.flush();
 		System.setOut(streamOut);
 		assertTrue(outStream.toString().equals(finalString));
@@ -98,11 +96,15 @@ public class quizschedTest {
 		System.setOut(streamOut);
 		assertFalse(outStream.toString().equals(finalString));
 	}
+
+	/*
+	 * 
+	 */
 	@SuppressWarnings("static-access")
 	@Test
 	public void testWrongCourseTitle() {
 		course = new courseBean(courseID, "Software", retakeDuration, startSkip, endSkip, dataLocation);
-		//course = new courseBean(null,null,null,startSkip, endSkip,null);
+		// course = new courseBean(null,null,null,startSkip, endSkip,null);
 		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 		PrintStream stream = new PrintStream(outStream);
 		PrintStream streamOut = System.out;
@@ -112,11 +114,16 @@ public class quizschedTest {
 		System.setOut(streamOut);
 		assertFalse(outStream.toString().equals(finalString));
 	}
+
+	/*
+	 * 
+	 */
 	@SuppressWarnings("static-access")
 	@Test
 	public void testNullCourseID_courseTitle_retakeDuration_dataLocation() {
-		//course = new courseBean(courseID, "Software", retakeDuration, startSkip, endSkip, dataLocation);
-		course = new courseBean(null,null,null,startSkip, endSkip,null);
+		// course = new courseBean(courseID, "Software", retakeDuration, startSkip,
+		// endSkip, dataLocation);
+		course = new courseBean(null, null, null, startSkip, endSkip, null);
 		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 		PrintStream stream = new PrintStream(outStream);
 		PrintStream streamOut = System.out;
@@ -126,11 +133,44 @@ public class quizschedTest {
 		System.setOut(streamOut);
 		assertFalse(outStream.toString().equals(finalString));
 	}
+
+	/*
+	 * 
+	 */
 	@Test
-	public void testCourseID(){
+	public void testCourseID() {
 		course = new courseBean(courseID, courseTitle, retakeDuration, startSkip, endSkip, dataLocation);
 		String courseID = course.getCourseID();
 		assertTrue("Here is the test for course ID: ", courseID.equals("swe437"));
+	}
+
+	@SuppressWarnings("static-access")
+	@Test
+	public void testSkipWeeks() {
+		course = new courseBean(courseID, courseTitle, retakeDuration, startSkip.plusWeeks(3), endSkip.plusMonths(3),
+				dataLocation);
+		// quizzes
+		quizBean qb1 = new quizBean(1, 01, 29, 10, 30);
+		quizBean qb2 = new quizBean(2, 02, 05, 10, 30);
+		quizList.addQuiz(qb1);
+		quizList.addQuiz(qb2);
+		// retakes
+		retakeBean qr1 = new retakeBean(1, "EB 4430", 03, 10, 15, 30);
+		retakeBean qr2 = new retakeBean(2, "???", 02, 05, 16, 00);
+
+		retakesList.addRetake(qr1);
+		retakesList.addRetake(qr2);
+
+		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+		PrintStream stream = new PrintStream(outStream);
+		PrintStream streamOut = System.out;
+		System.setOut(stream);
+		schedule.printQuizScheduleForm(quizList, retakesList, course);
+		System.out.flush();
+		System.setOut(streamOut);
+
+		assertFalse(outStream.toString().equals(finalString));
+
 	}
 
 }
