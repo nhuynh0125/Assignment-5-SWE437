@@ -8,7 +8,10 @@ import java.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 
+import org.junit.Test;
+
 public class quizschedTest {
+
 	quizsched schedule;
 	quizzes quizList;
 	retakes retakesList;
@@ -25,6 +28,8 @@ public class quizschedTest {
 	String Date;
 	String Until;
 	String finalString;
+	
+	String nl = System.getProperty("line.separator");
 
 	@Before
 	public void declaration() {
@@ -33,21 +38,21 @@ public class quizschedTest {
 		retakesList = new retakes();
 		//course = new courseBean(courseID, courseTitle, retakeDuration, startSkip, endSkip, dataLocation);
 		Intro =
-				"\r\n" +
-						"\r\n" +
-						"******************************************************************************\r\n" +
-						"GMU quiz retake scheduler for class Software testing\r\n" +
-						"******************************************************************************\r\n" +
-						"\r\n" +
-						"\r\n" +
-						"You can sign up for quiz retakes within the next two weeks. \r\n" +
-						"Enter your name (as it appears on the class roster), \r\n" +
-						"then select which date, time, and quiz you wish to retake from the following list.\r\n" +
-						"\r\n";
-		Date = "Today is " + current.getDayOfWeek() + ", " + current.getMonth() + " " + current.getDayOfMonth() +"\r\n";
+				nl +
+						nl +
+						"******************************************************************************" + nl +
+						"GMU quiz retake scheduler for class Software testing" + nl +
+						"******************************************************************************" + nl +
+						nl +
+						nl +
+						"You can sign up for quiz retakes within the next two weeks. " + nl +
+						"Enter your name (as it appears on the class roster), " + nl +
+						"then select which date, time, and quiz you wish to retake from the following list." + nl +
+						nl;
+		Date = "Today is " + current.getDayOfWeek() + ", " + current.getMonth() + " " + current.getDayOfMonth() + nl;
 		Until = "Currently scheduling quizzes for the next two weeks, until " +
-				current.plusWeeks(2).getDayOfWeek() + ", " + current.plusWeeks(2).getMonth() + " " + current.plusWeeks(2).getDayOfMonth() + "\r\n";
-		finalString = Intro + Date + Until + "\r\n";
+				current.plusWeeks(2).getDayOfWeek() + ", " + current.plusWeeks(2).getMonth() + " " + current.plusWeeks(2).getDayOfMonth() + nl;
+		finalString = Intro + Date + Until + nl;
 	}
 	
 	@SuppressWarnings("static-access")
@@ -127,4 +132,5 @@ public class quizschedTest {
 		String courseID = course.getCourseID();
 		assertTrue("Here is the test for course ID: ", courseID.equals("swe437"));
 	}
+
 }
