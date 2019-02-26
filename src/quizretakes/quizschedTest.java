@@ -9,11 +9,13 @@
  */
 package quizretakes;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.time.LocalDate;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -35,33 +37,32 @@ public class quizschedTest {
 	String Until;
 	String finalString;
 	String nl = System.getProperty("line.separator");
+
+	/*
+	 * The declaration method is an example of controllability because it sets up the tests
+	 */
 	@Before
 	public void declaration() {
 		current = LocalDate.now();
 		quizList = new quizzes();
 		retakesList = new retakes();
-		
-		Intro =
-				nl +
-						nl +
-						"******************************************************************************" + nl +
-						"GMU quiz retake scheduler for class Software testing" + nl +
-						"******************************************************************************" + nl +
-						nl +
-						nl +
-						"You can sign up for quiz retakes within the next two weeks. " + nl +
- 						"Enter your name (as it appears on the class roster), " + nl +
-						"then select which date, time, and quiz you wish to retake from the following list." + nl +
-						nl;
+
+		Intro = nl + nl + "******************************************************************************" + nl
+				+ "GMU quiz retake scheduler for class Software testing" + nl
+				+ "******************************************************************************" + nl + nl + nl
+				+ "You can sign up for quiz retakes within the next two weeks. " + nl
+				+ "Enter your name (as it appears on the class roster), " + nl
+				+ "then select which date, time, and quiz you wish to retake from the following list." + nl + nl;
 		Date = "Today is " + current.getDayOfWeek() + ", " + current.getMonth() + " " + current.getDayOfMonth() + nl;
-		Until = "Currently scheduling quizzes for the next two weeks, until " +
-				current.plusWeeks(2).getDayOfWeek() + ", " + current.plusWeeks(2).getMonth() + " " + current.plusWeeks(2).getDayOfMonth() + nl;
+		Until = "Currently scheduling quizzes for the next two weeks, until " + current.plusWeeks(2).getDayOfWeek()
+				+ ", " + current.plusWeeks(2).getMonth() + " " + current.plusWeeks(2).getDayOfMonth() + nl;
 		finalString = Intro + Date + Until + nl;
 	}
-	
+
 	@SuppressWarnings("static-access")
 	@Test
-	public void testSuccessPrint(){
+	public void testSuccessPrint() {
+		// start controllability
 		course = new courseBean(courseID, courseTitle, retakeDuration, startSkip, endSkip, dataLocation);
 		quizBean qb1 = new quizBean(1, 01, 29, 10, 30);
 		quizBean qb2 = new quizBean(2, 02, 05, 10, 30);
@@ -75,15 +76,20 @@ public class quizschedTest {
 		PrintStream stream = new PrintStream(outStream);
 		PrintStream streamOut = System.out;
 		System.setOut(stream);
+		// end controllability
+
+		// start observability
 		schedule.printQuizScheduleForm(quizList, retakesList, course);
 		System.out.flush();
 		System.setOut(streamOut);
 		assertTrue(outStream.toString().equals(finalString));
+		// end observability
 	}
-	
+
 	@SuppressWarnings("static-access")
 	@Test
 	public void testNullRetake() {
+		// start controllability
 		course = new courseBean(courseID, courseTitle, retakeDuration, startSkip, endSkip, dataLocation);
 		retakesList = null;
 		quizBean qb4 = new quizBean(5, 01, 30, 10, 30);
@@ -93,19 +99,24 @@ public class quizschedTest {
 		PrintStream streamOut = System.out;
 		System.setOut(stream);
 		boolean falseTest = false;
+		// end controllability
+
+		// start observability
 		try {
-		schedule.printQuizScheduleForm(quizList, retakesList, course);
-		}
-		catch(NullPointerException e) {
+			schedule.printQuizScheduleForm(quizList, retakesList, course);
+		} catch (NullPointerException e) {
 			falseTest = true;
 		}
 		System.out.flush();
 		System.setOut(streamOut);
 		assertFalse(outStream.toString().equals(finalString));
+		// end observability
 	}
+
 	@SuppressWarnings("static-access")
 	@Test
 	public void testNullQuiz() {
+		// start controllability
 		course = new courseBean(courseID, courseTitle, retakeDuration, startSkip, endSkip, dataLocation);
 		quizList = null;
 		retakeBean qr4 = new retakeBean(4, "EB 4430", 03, 06, 15, 30);
@@ -115,49 +126,63 @@ public class quizschedTest {
 		PrintStream streamOut = System.out;
 		System.setOut(stream);
 		boolean falseTest = false;
+		// end controllability
+
+		// start observability
 		try {
-		schedule.printQuizScheduleForm(quizList, retakesList, course);
-		}
-		catch(NullPointerException e) {
+			schedule.printQuizScheduleForm(quizList, retakesList, course);
+		} catch (NullPointerException e) {
 			falseTest = true;
 		}
 		System.out.flush();
 		System.setOut(streamOut);
 		assertFalse(outStream.toString().equals(finalString));
+		// end observability
 	}
-	
+
 	@SuppressWarnings("static-access")
 	@Test
 	public void testWrongCourseTitle() {
+		// start controllability
 		course = new courseBean(courseID, "Software", retakeDuration, startSkip, endSkip, dataLocation);
 		ByteArrayOutputStream outStream1 = new ByteArrayOutputStream();
 		PrintStream stream1 = new PrintStream(outStream1);
 		PrintStream streamOut1 = System.out;
 		System.setOut(stream1);
+		// end controllability
+
+		// start observability
 		schedule.printQuizScheduleForm(quizList, retakesList, course);
 		System.out.flush();
 		System.setOut(streamOut1);
 		assertFalse(outStream1.toString().equals(finalString));
+		// end observability
 	}
+
 	@SuppressWarnings("static-access")
 	@Test
 	public void testNullCourse() {
+		// start controllability
 		course = null;
 		ByteArrayOutputStream outStream2 = new ByteArrayOutputStream();
 		PrintStream stream2 = new PrintStream(outStream2);
 		PrintStream streamOut2 = System.out;
 		System.setOut(stream2);
 		boolean falseTest = false;
+		// end controllability
+
+		// start observability
 		try {
-		schedule.printQuizScheduleForm(quizList, retakesList, course);
-		}
-		catch(NullPointerException e) {
+			schedule.printQuizScheduleForm(quizList, retakesList, course);
+		} catch (NullPointerException e) {
 			falseTest = true;
 		}
 		System.out.flush();
 		System.setOut(streamOut2);
 		assertFalse(outStream2.toString().equals(finalString));
+		// end observability
 	}
+
 	@SuppressWarnings("static-access")
 	@Test
 	public void testSkipWeeks() {
@@ -179,11 +204,15 @@ public class quizschedTest {
 		PrintStream stream = new PrintStream(outStream);
 		PrintStream streamOut = System.out;
 		System.setOut(stream);
+		// end controllability
+
+		// start observability
 		schedule.printQuizScheduleForm(quizList, retakesList, course);
 		System.out.flush();
 		System.setOut(streamOut);
 
 		assertFalse(outStream.toString().equals(finalString));
+		// end observability
 
 	}
 
