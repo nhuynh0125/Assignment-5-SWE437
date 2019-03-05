@@ -166,7 +166,8 @@ public class InstructorUI {
 	 * @throws IOException
 	 * @throws SAXException
 	 */
-	public static void appendRetakeNodeToXML(retakeBean newRetake)
+
+	public static boolean appendRetakeNodeToXML(retakeBean newRetake)
 			throws ParserConfigurationException, SAXException, IOException, Exception {
 
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -177,6 +178,7 @@ public class InstructorUI {
 		Element rootElement = document.getDocumentElement();
 
 		Collection<retakeBean> retakes = new ArrayList<retakeBean>();
+
 		retakes.add(newRetake);
 
 		for (retakeBean i : retakes) {
@@ -223,6 +225,7 @@ public class InstructorUI {
 		transformer.transform(source, result);
 
 		System.out.println("The retake was added to the system successfully");
+		return true;
 
 	}
 
