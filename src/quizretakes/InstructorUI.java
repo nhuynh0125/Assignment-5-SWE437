@@ -164,7 +164,7 @@ public class InstructorUI {
 	 * @throws IOException 
 	 * @throws SAXException 
 	 */
-	public static void appendRetakeNodeToXML() throws ParserConfigurationException, SAXException, IOException, Exception{
+	public static boolean appendRetakeNodeToXML() throws ParserConfigurationException, SAXException, IOException, Exception{
 		
 		System.out.println("Let's create a new retake");
 		
@@ -224,6 +224,7 @@ public class InstructorUI {
 	    transformer.transform(source, result);
 	    
 	    System.out.println("The retake was added to the system successfully");		
+	    return true;
 		
 	}
 	
