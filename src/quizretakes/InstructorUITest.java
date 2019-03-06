@@ -1,5 +1,11 @@
 package quizretakes;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -12,18 +18,31 @@ public class InstructorUITest {
 	private static String origQuizXMLContent;
 	private static String origRetakeXMLContent;
 
-	//
 	@BeforeClass
-	public void declaration() {
-		// TODO: create string with all data from xml files in before method
-		// origQuizXMLContent = read file
-		// origRetakeXMLContent = read file
+	public static void declaration() {
+		try {
+			origQuizXMLContent = new String(Files.readAllBytes(Paths.get(quizXMLPath)));
+			origRetakeXMLContent = new String(Files.readAllBytes(Paths.get(retakesXMLPath)));
+		} catch (Exception e) {
+			System.out.println("Unable to read XML files");
+		}
 
 	}
 
 	@After
 	public void afterMethod() {
 		// TODO: paste original contents back to xml files after every method
+		try {
+			Writer filewriter = new FileWriter(quizXMLPath, false);
+			filewriter.write(origQuizXMLContent);
+			filewriter.close();
+
+			filewriter = new FileWriter(retakesXMLPath, false);
+			filewriter.write(origRetakeXMLContent);
+			filewriter.close();
+		} catch (IOException e) {
+			System.out.println("Unable to write to file");
+		}
 	}
 
 	/*
