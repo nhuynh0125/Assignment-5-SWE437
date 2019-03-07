@@ -1,4 +1,8 @@
-
+/**
+ * Ngoc Huynh, Quang Vo, Keith Saldana
+ * The new UI with new features
+ * Please make sure to change the path if want to run this file, along with the JUnit.
+ */
 package quizretakes;
 
 import java.io.File;
@@ -22,7 +26,7 @@ import org.xml.sax.SAXException;
 
 public class InstructorUI {
 
-	private static String dataLocation = "/Users/keith/Documents/Spring2019/swe437/quizschedule4/resources/"; /* CLI */
+	private static String dataLocation = "/Users/vanes/eclipse-workspace/quizschedule4-master/src/"; /* CLI */
 	private static String quizzesFileName = dataLocation + "quiz-orig-swe437.xml";
 	private static String retakesFileName = dataLocation + "quiz-retakes-swe437.xml";
 	private static Scanner sc;
