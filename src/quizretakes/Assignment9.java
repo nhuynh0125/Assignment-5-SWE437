@@ -111,38 +111,38 @@ public class Assignment9 {
 		// end observability
 	}
 
-	@SuppressWarnings("static-access")
-	@Test
-	public void TestPath3() {
-		// start controllability
-		startSkip = LocalDate.of(2019, 04, 27);
-		endSkip = LocalDate.of(2019, 05, 8);
-
-		course = new courseBean(courseID, courseTitle, retakeDuration, startSkip, endSkip, dataLocation);
-		quizBean qb1 = new quizBean(1, 04, 23, 10, 30);
-		quizBean qb2 = new quizBean(2, 04, 30, 10, 30);
-		quizList.addQuiz(qb1);
-		quizList.addQuiz(qb2);
-		retakeBean qr1 = new retakeBean(1, "EB 4430", 04, 30, 15, 30);
-		retakeBean qr2 = new retakeBean(2, "???", 05, 07, 15, 30);
-		retakesList.addRetake(qr1);
-		retakesList.addRetake(qr2);
-		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-		PrintStream stream = new PrintStream(outStream);
-		PrintStream streamOut = System.out;
-		System.setOut(stream);
-		// end controllability
-
-		// start observability
-		schedule.printQuizScheduleForm(quizList, retakesList, course);
-		System.out.flush();
-		System.setOut(streamOut);
-		String temp = outStream.toString();
-		temp = temp.replaceAll("\\s+", " ");
-		String goalString = finalString
-				+ "RETAKE: TUESDAY, APRIL 30, at 15:30 in EB 4430 1) Quiz 1 from TUESDAY, APRIL 23 2) Quiz 2 from TUESDAY, APRIL 30 Skipping a week, no quiz or retakes. RETAKE: TUESDAY, MAY 7, at 15:30 in ??? 3) Quiz 1 from TUESDAY, APRIL 23 4) Quiz 2 from TUESDAY, APRIL 30 ";
-		goalString = goalString.replaceAll("\\s+", " ");
-		assertTrue(temp.equals(goalString));
-		// end observability
-	}
+//	@SuppressWarnings("static-access")
+//	@Test
+//	public void TestPath3() {
+//		// start controllability
+//		startSkip = LocalDate.of(2019, 04, 27);
+//		endSkip = LocalDate.of(2019, 05, 8);
+//
+//		course = new courseBean(courseID, courseTitle, retakeDuration, startSkip, endSkip, dataLocation);
+//		quizBean qb1 = new quizBean(1, 04, 23, 10, 30);
+//		quizBean qb2 = new quizBean(2, 04, 30, 10, 30);
+//		quizList.addQuiz(qb1);
+//		quizList.addQuiz(qb2);
+//		retakeBean qr1 = new retakeBean(1, "EB 4430", 04, 30, 15, 30);
+//		retakeBean qr2 = new retakeBean(2, "???", 05, 07, 15, 30);
+//		retakesList.addRetake(qr1);
+//		retakesList.addRetake(qr2);
+//		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+//		PrintStream stream = new PrintStream(outStream);
+//		PrintStream streamOut = System.out;
+//		System.setOut(stream);
+//		// end controllability
+//
+//		// start observability
+//		schedule.printQuizScheduleForm(quizList, retakesList, course);
+//		System.out.flush();
+//		System.setOut(streamOut);
+//		String temp = outStream.toString();
+//		temp = temp.replaceAll("\\s+", " ");
+//		String goalString = finalString
+//				+ "RETAKE: TUESDAY, APRIL 30, at 15:30 in EB 4430 1) Quiz 1 from TUESDAY, APRIL 23 2) Quiz 2 from TUESDAY, APRIL 30 Skipping a week, no quiz or retakes. RETAKE: TUESDAY, MAY 7, at 15:30 in ??? 3) Quiz 1 from TUESDAY, APRIL 23 4) Quiz 2 from TUESDAY, APRIL 30 ";
+//		goalString = goalString.replaceAll("\\s+", " ");
+//		assertTrue(temp.equals(goalString));
+//		// end observability
+//	}
 }
