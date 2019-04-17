@@ -1,3 +1,8 @@
+/**
+ * Ngoc Huynh, Quang Vo, Keith Saldana
+ * 
+ * JUnit test for Assignment 9
+ */
 package quizretakes;
 
 import static org.junit.Assert.assertTrue;
