@@ -115,6 +115,9 @@ public class Assignment9 {
 	@Test
 	public void TestPath3() {
 		// start controllability
+		startSkip = LocalDate.of(2019, 04, 27);
+		endSkip = LocalDate.of(2019, 05, 8);
+
 		course = new courseBean(courseID, courseTitle, retakeDuration, startSkip, endSkip, dataLocation);
 		quizBean qb1 = new quizBean(1, 04, 23, 10, 30);
 		quizBean qb2 = new quizBean(2, 04, 30, 10, 30);
@@ -137,7 +140,7 @@ public class Assignment9 {
 		String temp = outStream.toString();
 		temp = temp.replaceAll("\\s+", " ");
 		String goalString = finalString
-				+ "RETAKE: TUESDAY, APRIL 30, at 15:30 in EB 4430 1) Quiz 1 from TUESDAY, APRIL 23 2) Quiz 2 from TUESDAY, APRIL 30 ";
+				+ "RETAKE: TUESDAY, APRIL 30, at 15:30 in EB 4430 1) Quiz 1 from TUESDAY, APRIL 23 2) Quiz 2 from TUESDAY, APRIL 30 Skipping a week, no quiz or retakes. RETAKE: TUESDAY, MAY 7, at 15:30 in ??? 3) Quiz 1 from TUESDAY, APRIL 23 4) Quiz 2 from TUESDAY, APRIL 30 ";
 		goalString = goalString.replaceAll("\\s+", " ");
 		assertTrue(temp.equals(goalString));
 		// end observability
