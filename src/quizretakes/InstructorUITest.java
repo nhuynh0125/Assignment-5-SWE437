@@ -1,3 +1,11 @@
+/**
+ * Ngoc Huynh, Quang Vo, Keith Saldana
+ * 
+ * Note: please make sure to change the path when trying to run
+ * 
+ * User Story: As an instructor, I want to have a new feature in quizretake software, 
+ * so that I can define scheduled quizzes and retakes through the UI.
+ */
 package quizretakes;
 
 import java.io.FileWriter;
@@ -12,9 +20,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class InstructorUITest {
-
-	private static String quizXMLPath = "/Users/keith/Documents/Spring2019/swe437/quizschedule4/resources/quiz-orig-swe437.xml";
-	private static String retakesXMLPath = "/Users/keith/Documents/Spring2019/swe437/quizschedule4/resources/quiz-retakes-swe437.xml";
+	private static String quizXMLPath = "/Users/vanes/eclipse-workspace/quizschedule4-master/src/quiz-orig-swe437.xml";
+	private static String retakesXMLPath = "/Users/vanes/eclipse-workspace/quizschedule4-master/src/quiz-retakes-swe437.xml";
 	private static String origQuizXMLContent;
 	private static String origRetakeXMLContent;
 
@@ -46,7 +53,11 @@ public class InstructorUITest {
 	}
 
 	/*
-	 * TODO: Find way to only read last quiz from iterator
+	 * Test for user's creating new, valid quiz
+	 * This test was first created by creating just the name of the test
+	 * and adding a new quizBean into the qlist and test for assertTrue
+	 * Refactoring: Then we add a try-catch exception and since the test was false on us,
+	 * we add another try-catch exception to test for reason why it's failing
 	 */
 	@Test
 	public void createQuizTest() {
@@ -76,6 +87,13 @@ public class InstructorUITest {
 
 	}
 
+	/*
+	 * Test for user's creating new, invalid quiz
+	 * This test was first created by creating just the name of the test
+	 * and adding a new, invalid quizBean into the qlist and test for assertFalse
+	 * Refactoring: Then we add a try-catch exception since the test did not pass,
+	 * after fixing codes from the UI, we add another try-catch exception to test for reason why it's failing
+	 */
 	@Test
 	public void invalidQuizTest() {
 		quizBean qbean = null;
@@ -103,6 +121,16 @@ public class InstructorUITest {
 
 	}
 
+	/*
+	 * Test for user's creating new, valid retake
+	 * This test was first created by creating just the name of the test
+	 * and adding a new retakesReader into the rlist and test for assertTrue, 
+	 * so see if the test was able to pass
+	 * Refactoring: Then we add a try-catch exception since the test was false on us,
+	 * after making a few changes from both this test file and the UI files,
+	 * we add another try-catch exception to test for why it's failing.
+	 * After realizing that the path was wrongly type, we was able to make the test pass
+	 */
 	@Test
 	public void createRetakesTest() {
 		retakeBean rbean = new retakeBean(3, "wherever", 3, 5, 10, 00);
@@ -130,6 +158,16 @@ public class InstructorUITest {
 
 	}
 
+	/*
+	 * Test for user's creating new, invalid retake
+	 * This test was first created by creating just the name of the test
+	 * and adding a new retakesReader into the rlist and test for assertFalse, 
+	 * so see if the test was able to pass
+	 * Refactoring: Then we add a try-catch exception since the test was false on us,
+	 * after making a few changes from both this test file and the UI files,
+	 * we add another try-catch exception to test for why it's failing.
+	 * After realizing that the path was wrongly type, we was able to make the test pass
+	 */
 	@Test
 	public void invalidRetakesTest() {
 
